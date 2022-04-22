@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'all index, show, edit, new pages' do
-	it 'shows the team members usernames' do
+	xit 'shows the team members usernames' do
 		merchant = FactoryBot.create_list(:merchant,1)[0]
 		invoice = FactoryBot.create_list(:invoice, 1)[0]
 		item = FactoryBot.create_list(:item, 1, merchant: merchant)[0]

@@ -1,10 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe GithubSearch do 
+RSpec.describe GithubFacade do 
 	describe '.contributor_information' do 
-		it 'create contributor poros' do 
-			contributors = GithubSearch.new.contributor_information
-			expect(contributors.first).to be_a Contributor 
+		xit 'create contributor poros' do 
 		end
 	end
 end

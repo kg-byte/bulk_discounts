@@ -2,11 +2,11 @@ require "json"
 require "httparty"
 
 class GithubService
-  def repo
+  def get_repo
     get_url("https://api.github.com/repos/sueboyd922/little-esty-shop")
   end
 
-  def contributors
+  def get_contributors
     get_url("https://api.github.com/repos/sueboyd922/little-esty-shop/contributors")
   end
 

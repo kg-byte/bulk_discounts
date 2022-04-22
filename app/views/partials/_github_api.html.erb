@@ -2,15 +2,14 @@
 <br><br><br><br><br>
 <section id = "github_info">
 <h3> About This Repository:</h3>
-<% if @github_info.class == String %>
-      <h4>Unable to show Github Repo Details:</h4>
-      <p><%= @github_info %></p>
-<% else %>
-<h4>Repo Name:</h4>
-<p><%= @github_info[:repo].name %></p>
+<% if !@facade.repo_data[:message] %>
+  <h4>Repo Name:</h4>
+  <p><%= @facade.create_repo.name %></p>
   <h4>Collaborators:</h4
-   <% @github_info[:contributors].map do |contributor| %>
-      <p><%= contributor.user_name %>: <%=contributor.contributions %> commits</p>
+     <% @facade.create_contributors.map do |contributor| %>
+        <p><%= contributor.user_name %>: <%=contributor.contributions %> commits</p>
    <%end %>
+<% else %>
+  <%= @facade.repo_data[:message] %>
 <% end %>
 </section>
