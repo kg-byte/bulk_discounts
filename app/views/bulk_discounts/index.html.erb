@@ -1,9 +1,11 @@
 <h1>Bulk Discounts List</h1>
-<p><%=link_to 'New Bulk Discount', new_merchant_bulk_discount_path(@bulk_discounts.first.merchant_id) %></p>
-<% @bulk_discounts.each_with_index do |discount, index| %>
+
+<p><%=link_to 'New Bulk Discount', new_merchant_bulk_discount_path(@merchant.id) %></p>
+<% @merchant.bulk_discounts.each_with_index do |discount, index| %>
 	<section id = "bulk_discount-<%= discount.id %>">
 	<p><strong>Bulk Discount <%=index+1%>:</strong></p>
 	<p><strong> Quantity threshold:</strong> <%= discount.quantity %>, <strong>Percentage discount:</strong> <%= number_to_percentage(discount.discount*100, precision: 0) %></p>
 	<p><%= link_to "Go to This Discount", bulk_discount_path(discount.id)%></p><br>
+	<p><%= link_to 'Delete This Discount', bulk_discount_path(discount.id, merchant_id: @merchant.id), method: :delete%></p>
 	</section>
 <% end %>
