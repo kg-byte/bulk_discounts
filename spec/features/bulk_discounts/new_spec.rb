@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "merchants bulk discounts index page", type: :feature do
+RSpec.describe "merchants bulk discounts new page", type: :feature do
   before(:each) do
     @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
     @merchant2 = Merchant.create!(name: "Williamson Group")
