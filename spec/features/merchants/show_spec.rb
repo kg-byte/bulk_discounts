@@ -150,11 +150,5 @@ RSpec.describe 'merchant show page' do
 		click_link 'My Bulk Discounts'
 		expect(current_path). to eq merchant_bulk_discounts_path(@merchant1.id)
 
-# save_and_open_page	
-# 		within("#bulk_discounts") do 
-# 			expect(page).to have_content('Quantity threshold: 10, Percentage discount: 15%')
-# 			expect(page).to have_content('Quantity threshold: 15, Percentage discount: 20%')
-# 			expect(page).to_not have_content('Quantity threshold:20, Percentage discount: 25%')
-# 		end
 	end
 end
