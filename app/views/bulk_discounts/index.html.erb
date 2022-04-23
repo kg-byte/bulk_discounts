@@ -6,5 +6,6 @@
 	<p><strong>Bulk Discount <%=index+1%>:</strong></p>
 	<p><strong> Quantity threshold:</strong> <%= discount.quantity %>, <strong>Percentage discount:</strong> <%= number_to_percentage(discount.discount*100, precision: 0) %></p>
 	<p><%= link_to "Go to This Discount", bulk_discount_path(discount.id)%></p><br>
+	<p><%= link_to 'Delete This Discount', bulk_discount_path(discount.id, merchant_id: @merchant.id), method: :delete%></p>
 	</section>
 <% end %>
