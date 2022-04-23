@@ -1,4 +1,9 @@
+<h1>Bulk Discounts List</h1>
 
 <% @bulk_discounts.each_with_index do |discount, index| %>
-<p><%= link_to "Bulk Discount #{index+1}", bulk_discount_path(discount.id)%>: Quantity threshold: <%= discount.quantity %>, Percentage discount: <%= number_to_percentage(discount.discount*100, precision: 0) %></p>
+	<section id = "bulk_discount-<%= discount.id %>">
+	<p><strong>Bulk Discount <%=index+1%>:</strong></p>
+	<p><strong> Quantity threshold:</strong> <%= discount.quantity %>, <strong>Percentage discount:</strong> <%= number_to_percentage(discount.discount*100, precision: 0) %></p>
+	<p><%= link_to "Go to This Discount", bulk_discount_path(discount.id)%></p><br>
+	</section>
 <% end %>
