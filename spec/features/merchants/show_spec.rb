@@ -138,4 +138,10 @@ RSpec.describe 'merchant show page' do
 		expect(page).to_not have_content(cust4.first_name)
 		expect(page).to_not have_content(cust4.last_name)
 	end
+
+	it 'has a link to all bulk discounts' do 
+		visit "/merchants/@merchant1/dashboard"
+
+
+	end
 end
