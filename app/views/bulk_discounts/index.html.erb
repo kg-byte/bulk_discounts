@@ -5,8 +5,8 @@
 	<section id = "bulk_discount-<%= discount.id %>">
 	<p><strong>Bulk Discount <%=index+1%>:</strong></p>
 	<p><strong> Quantity threshold:</strong> <%= discount.quantity %>, <strong>Percentage discount:</strong> <%= number_to_percentage(discount.discount*100, precision: 0) %></p>
-	<p><%= link_to "Go to This Discount", bulk_discount_path(discount.id)%>
-	<%= link_to 'Delete This Discount', bulk_discount_path(discount.id, merchant_id: @merchant.id), method: :delete%></p>
+	<p><%= link_to "Go to This Discount", merchant_bulk_discount_path(@merchant.id, discount.id)%>
+	<%= link_to 'Delete This Discount', merchant_bulk_discount_path(@merchant.id, discount.id), method: :delete%></p>
 	<br>
 	</section>
 <% end %>
