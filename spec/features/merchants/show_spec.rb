@@ -51,6 +51,7 @@ RSpec.describe 'merchant show page' do
 			expect(page).to_not have_content(@invoice_item1.invoice_id)
 		end
 	end
+
 	it 'items_ready_to_ship section shows invoice created_at date with weekday, mon, date, year format' do 
 		@item1 = @merchant1.items.create!(name: "Item Qui Esse", description: "Nihil autem sit odio inventore deleniti. Est lauda...", unit_price: 75107)
 		@customer1 = Customer.create!(first_name: "Joey", last_name: "Ondricka")
@@ -83,14 +84,14 @@ RSpec.describe 'merchant show page' do
         invoice7 = FactoryBot.create_list(:invoice, 1, customer_id: cust4.id, status: 2)[0]
 
 
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice1.id)
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice2.id)
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice3.id)
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice4.id)
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice5.id)
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice6.id)
-         FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice7.id)
- 
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice1.id)
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice2.id)
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice3.id)
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice4.id)
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice5.id)
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice6.id)
+	    FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice7.id)
+
  
         FactoryBot.create_list(:transaction, 10, invoice_id: invoice1.id, result: 0) 
         FactoryBot.create_list(:transaction, 8, invoice_id: invoice2.id, result: 0) 
@@ -137,5 +138,17 @@ RSpec.describe 'merchant show page' do
 		expect(page).to_not have_content(cust7.last_name)
 		expect(page).to_not have_content(cust4.first_name)
 		expect(page).to_not have_content(cust4.last_name)
+	end
+
+	it 'has a link to all bulk discounts' do 
+		bulk_discount1 = @merchant1.bulk_discounts.create!(quantity:10, discount:0.15)
+		bulk_discount2 = @merchant1.bulk_discounts.create!(quantity:15, discount:0.2)
+		bulk_discount3 = @merchant2.bulk_discounts.create!(quantity:20, discount:0.25)
+
+		visit "/merchants/#{@merchant1.id}/dashboard"
+
+		click_link 'My Bulk Discounts'
+		expect(current_path). to eq merchant_bulk_discounts_path(@merchant1.id)
+
 	end
 end
