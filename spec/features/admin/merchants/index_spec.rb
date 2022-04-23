@@ -138,5 +138,26 @@ RSpec.describe "the admin merchants indexpage" do
       expect(page).to have_content(50.00)
     end
   end
+
+  it 'returns the best day of sales of a merchant' do 
+      merchant1 = Merchant.create!(name: "Stuff and Things ")
+      item1 = FactoryBot.create_list(:item, 1, merchant_id: merchant1.id)[0]
+      invoice1 = FactoryBot.create_list(:invoice, 1, status: 2, created_at: '2022-01-01')[0]
+      invoice2 = FactoryBot.create_list(:invoice, 1, status: 2, created_at: '2022-02-01')[0]
+      invoice3 = FactoryBot.create_list(:invoice, 1, status: 2, created_at: '2022-03-01')[0]
+
+      FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 10)
+      FactoryBot.create_list(:invoice_item, 2, item_id: item1.id, invoice_id: invoice2.id, quantity: 10, unit_price: 25)
+      FactoryBot.create_list(:invoice_item, 3, item_id: item1.id, invoice_id: invoice3.id, quantity: 10, unit_price: 245)
+
+      FactoryBot.create_list(:transaction, 1, invoice_id: invoice1.id, result: 0)
+      FactoryBot.create_list(:transaction, 1, invoice_id: invoice2.id, result: 0)
+      FactoryBot.create_list(:transaction, 1, invoice_id: invoice3.id, result: 1)
+      visit admin_merchants_path
+
+      within("#top_5-#{merchant1.id}") do 
+        expect(page).to have_content('Tuesday, February, 01, 2022')
+      end
+  end
 end
 
