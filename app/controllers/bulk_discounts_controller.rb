@@ -12,9 +12,14 @@ class BulkDiscountsController < ApplicationController
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    merchant.bulk_discounts.create(discount_params)
-    redirect_to merchant_bulk_discounts_path(merchant.id)
+      merchant = Merchant.find(params[:merchant_id])
+    if BulkDiscount.applicable?(discount_params)
+      merchant.bulk_discounts.create(discount_params)
+      redirect_to merchant_bulk_discounts_path(merchant.id)
+    else 
+      flash[:notice] = "Unable to create this Bulk Discount as it is not applicable with other existing discounts!"
+      redirect_to new_merchant_bulk_discount_path(merchant.id)
+    end
   end
 
   def edit 
@@ -24,12 +29,17 @@ class BulkDiscountsController < ApplicationController
   def update
     merchant = Merchant.find(params[:merchant_id])
     bulk_discount = BulkDiscount.find(params[:id])
-    if bulk_discount.updatable?
-      bulk_discount.update(discount_params)
-      redirect_to merchant_bulk_discount_path(merchant.id, bulk_discount.id)
+    if bulk_discount.updatable? 
+      if BulkDiscount.applicable?(discount_params)
+        bulk_discount.update(discount_params)
+        redirect_to merchant_bulk_discount_path(merchant.id, bulk_discount.id)
+      else
+        flash[:notice] = "Unable to update this Bulk Discount as it is not applicable with current other discounts!"
+        redirect_to edit_merchant_bulk_discount_path(merchant.id)
+      end
     else 
       flash[:notice] = "Unable to update this Bulk Discount due to Pending Invoices!"
-      redirect_to merchant_bulk_discount_path(merchant.id, bulk_discount.id)
+      redirect_to edit_merchant_bulk_discount_path(merchant.id, bulk_discount.id)
     end
   end
 
@@ -47,7 +57,7 @@ class BulkDiscountsController < ApplicationController
 
 private 
   def discount_params
-    params.permit(:quantity, :discount)
+    params.permit(:quantity, :discount, :merchant_id)
   end
 
 end

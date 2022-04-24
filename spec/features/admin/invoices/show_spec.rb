@@ -126,7 +126,7 @@ RSpec.describe "admin invoices show page" do
   it 'shows the applied bulk discount percentageif applicable and when invoice is marked completed' do 
     merchant3 = FactoryBot.create_list(:merchant, 1)[0]
     item5 = FactoryBot.create_list(:item, 1, merchant: merchant3)[0]
-    invoice4 = FactoryBot.create_list(:invoice, 1)[0]
+    invoice4 = FactoryBot.create_list(:invoice, 1, status: 'completed')[0]
     invoice_item5 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 15)[0]
     discount1 = merchant3.bulk_discounts.create!(quantity: 10, discount: 0.1)
     discount2 = merchant3.bulk_discounts.create!(quantity: 15, discount: 0.2)
