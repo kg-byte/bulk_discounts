@@ -28,10 +28,15 @@ RSpec.describe InvoiceItem, type: :model do
         item5 = FactoryBot.create_list(:item, 1, merchant: merchant3)[0]
         invoice4 = FactoryBot.create_list(:invoice, 1)[0]
         invoice_item5 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 15)[0]
+        invoice_item6 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 10)[0]
+        invoice_item7 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 8)[0]
         discount1 = merchant3.bulk_discounts.create!(quantity: 10, discount: 0.1)
         discount2 = merchant3.bulk_discounts.create!(quantity: 15, discount: 0.2)
 
         expect(invoice_item5.applied_discount).to eq(discount2)
+        expect(invoice_item6.applied_discount).to eq(discount1)
+        expect(invoice_item7.applied_discount).to eq(nil)
+
       end
     end
   end
