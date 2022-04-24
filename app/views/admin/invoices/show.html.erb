@@ -24,4 +24,4 @@
   <br/>
 </div>
 <% end %>
-<p><strong>Total Revenue: $<%= '%.2f' % @invoice.total_revenue%></p>
+<p><strong>Total Revenue: <%= number_to_currency(@invoice.total_revenue, :unit => '$')%></p>

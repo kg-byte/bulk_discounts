@@ -77,8 +77,8 @@ RSpec.describe "admin invoices show page" do
     InvoiceItem.create!(item: item4, invoice: invoice2, quantity: 2, unit_price: 5070, status: 0)
 
     visit "/admin/invoices/#{invoice.id}"
-    expect(page).to have_content("Total Revenue: $2147.30")
-    expect(page).not_to have_content("Total Revenue: $2248.70")
+    expect(page).to have_content("Total Revenue: $2,147.30")
+    expect(page).not_to have_content("Total Revenue: $2,248.70")
 
     visit "/admin/invoices/#{invoice2.id}"
     expect(page).to have_content("Total Revenue: $101.40")
