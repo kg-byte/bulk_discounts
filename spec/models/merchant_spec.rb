@@ -143,6 +143,7 @@ RSpec.describe Merchant, type: :model do
 
       describe "#enabled_merchants, #disabled_merchants" do
         it "lists enabled and disabled merchants" do
+          Merchant.destroy_all
           merchant1 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
           merchant2 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
           merchant3 = FactoryBot.create_list(:merchant, 1, status: 0)[0]

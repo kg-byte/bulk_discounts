@@ -4,7 +4,7 @@
 <p>Invoice Status: <%= @invoice.status %></p>
 <p>Invoice Creation Date: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-<p>Total Revenue: $<%= '%.02f' % @invoice.total_revenue %></p>
+<p>Total Revenue: <%= number_to_currency(@invoice.total_revenue, :unit => '$') %></p>
 <p>Discounted Revenue: <%= number_to_currency(@invoice.discounted_revenue, :unit =>'$') %></p>
 <h1>Item Information</h1>
 
@@ -21,6 +21,9 @@
     <%= f.submit 'Update Item Status' %>
       <%end %>
     </div>
+    <% if invoice_item.applied_discount %>
+    <p><%= link_to 'Applied Bulk Discount',merchant_bulk_discount_path(invoice_item.applied_discount.merchant_id, invoice_item.applied_discount.id) %></p>
+    <% end %>
     <br>
 </section>
   <% end %>

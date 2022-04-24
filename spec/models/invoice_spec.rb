@@ -63,7 +63,7 @@ RSpec.describe Invoice, type: :model do
         invoice_4 = customer_1.invoices.create!(status: "completed")
         invoice_5 = customer_1.invoices.create!(status: "completed")
 
-        expect(Invoice.not_completed).to eq([invoice_1, invoice_2])
+        expect(customer_1.invoices.not_completed).to eq([invoice_1, invoice_2])
       end
   end
  end
