@@ -24,15 +24,25 @@ class BulkDiscountsController < ApplicationController
   def update
     merchant = Merchant.find(params[:merchant_id])
     bulk_discount = BulkDiscount.find(params[:id])
-    bulk_discount.update(discount_params)
-    redirect_to merchant_bulk_discount_path(merchant.id, bulk_discount.id)
+    if bulk_discount.updatable?
+      bulk_discount.update(discount_params)
+      redirect_to merchant_bulk_discount_path(merchant.id, bulk_discount.id)
+    else 
+      flash[:notice] = "Cannot update Bulk Discount due to Pending Invoices"
+      redirect_to merchant_bulk_discounts_path(merchant.id)
+    end
   end
 
   def destroy
     merchant = Merchant.find(params[:merchant_id])
     bulk_discount = BulkDiscount.find(params[:id])
-    bulk_discount.destroy
-    redirect_to merchant_bulk_discounts_path(merchant.id)
+    if bulk_discount.updatable?
+      bulk_discount.destroy
+      redirect_to merchant_bulk_discounts_path(merchant.id)
+    else 
+      flash[:notice] = "Cannot delete Bulk Discount due to Pending Invoices"
+      redirect_to merchant_bulk_discounts_path(merchant.id)
+    end
   end
 
 private 
