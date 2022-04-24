@@ -83,4 +83,26 @@ RSpec.describe "merchants bulk discounts index page", type: :feature do
       expect(page).to_not have_content(holidays_data[3][:date])
      end
   end
+
+  it 'has a link next to each holiday to create a holiday discount' do 
+    visit merchant_bulk_discounts_path(@merchant1.id)
+
+     holidays_data = HolidayService.new.get_holidays
+
+     within("#upcoming_holidays") do 
+      within("#holiday-1") do 
+        click_link 'Create Holiday Discount'
+
+        expect(current_path).to eq new_merchant_bulk_discount_path(@merchant1.id)
+        
+      end
+     end
+
+
+        fill_in 'quantity', with: 15
+        fill_in 'discount', with: 0.10
+        
+        click_button 'Submit'
+        expect(current_path).to eq merchant_bulk_discounts_path(@merchant1.id)
+  end
 end
