@@ -11,7 +11,7 @@ RSpec.describe "merchants bulk discounts new page", type: :feature do
 
     visit merchant_bulk_discounts_path(@merchant1.id)
 
-    expect(page).to_not have_content(20)
+    expect(page).to_not have_content('Quantity threshold: 20')
     expect(page).to_not have_content('20%')
 
     visit new_merchant_bulk_discount_path(@merchant1.id)
@@ -22,7 +22,7 @@ RSpec.describe "merchants bulk discounts new page", type: :feature do
     click_button 'Submit'
 
     expect(current_path).to eq merchant_bulk_discounts_path(@merchant1.id)
-    expect(page).to have_content(20)
+    expect(page).to have_content('Quantity threshold: 20')
     expect(page).to have_content('20%')
   end
 

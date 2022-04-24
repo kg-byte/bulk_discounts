@@ -1,0 +1,6 @@
+<section id = "upcoming_holidays">
+<h3> Upcoming US Holidays:</h3>
+  <p><% @holiday_facade.create_holidays[0..2].each do |holiday| %></p>
+        <p><strong><%= holiday.name %>:</strong> <%= holiday.date %> </p>
+   <%end %>
+</section>
