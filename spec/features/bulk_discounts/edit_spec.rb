@@ -11,9 +11,9 @@ RSpec.describe "merchants bulk discounts edit page", type: :feature do
 
     visit merchant_bulk_discounts_path(@merchant1.id, bulk_discount1.id)
 
-    expect(page).to_not have_content(20)
+    expect(page).to_not have_content('Quantity threshold: 20')
     expect(page).to_not have_content('20%')    
-    expect(page).to have_content(15)
+    expect(page).to have_content('Quantity threshold: 10')
     expect(page).to have_content('15%')
 
     visit edit_merchant_bulk_discount_path(@merchant1.id, bulk_discount1.id)
@@ -24,9 +24,9 @@ RSpec.describe "merchants bulk discounts edit page", type: :feature do
     click_button 'Save'
 
     expect(current_path).to eq merchant_bulk_discount_path(@merchant1.id, bulk_discount1.id)
-    expect(page).to have_content(20)
+    expect(page).to have_content('Quantity threshold: 20')
     expect(page).to have_content('20%')
-    expect(page).to_not have_content(15)
+    expect(page).to_not have_content('Quantity threshold: 15')
     expect(page).to_not have_content('15%')
   end
 

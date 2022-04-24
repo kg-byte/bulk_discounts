@@ -67,4 +67,20 @@ RSpec.describe "merchants bulk discounts index page", type: :feature do
       expect(page).to have_content('Quantity threshold: 15, Percentage discount: 20%')
   end
 
+  it 'lists the next 3 upcoming US holidays' do 
+     visit merchant_bulk_discounts_path(@merchant1.id)
+
+     holidays_data = HolidayService.new.get_holidays
+
+     within("#upcoming_holidays") do 
+      expect(page).to have_content(holidays_data[0][:name])
+      expect(page).to have_content(holidays_data[0][:date])
+      expect(page).to have_content(holidays_data[1][:name])
+      expect(page).to have_content(holidays_data[1][:date])
+      expect(page).to have_content(holidays_data[2][:name])
+      expect(page).to have_content(holidays_data[2][:date])
+      expect(page).to_not have_content(holidays_data[3][:name])
+      expect(page).to_not have_content(holidays_data[3][:date])
+     end
+  end
 end
