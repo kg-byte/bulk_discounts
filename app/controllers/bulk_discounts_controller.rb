@@ -28,7 +28,7 @@ class BulkDiscountsController < ApplicationController
       bulk_discount.update(discount_params)
       redirect_to merchant_bulk_discount_path(merchant.id, bulk_discount.id)
     else 
-      flash[:notice] = "Unable to update Bulk Discount due to Pending Invoices"
+      flash[:notice] = "Unable to update this Bulk Discount due to Pending Invoices"
       redirect_to merchant_bulk_discounts_path(merchant.id)
     end
   end
@@ -40,7 +40,7 @@ class BulkDiscountsController < ApplicationController
       bulk_discount.destroy
       redirect_to merchant_bulk_discounts_path(merchant.id)
     else 
-      flash[:notice] = "Unable to delete Bulk Discount due to Pending Invoices"
+      flash[:notice] = "Unable to delete this Bulk Discount due to Pending Invoices"
       redirect_to merchant_bulk_discounts_path(merchant.id)
     end
   end
