@@ -13,7 +13,7 @@ class InvoiceItem < ApplicationRecord
   enum status: {"packaged" => 0, "pending" => 1, "shipped" => 2}
 
   def applied_discount
-     bulk_discounts.where('quantity >= bulk_discounts.quantity')
+     bulk_discounts.where("#{quantity} >= bulk_discounts.quantity")
     .order(discount: :desc)
     .first
   end
