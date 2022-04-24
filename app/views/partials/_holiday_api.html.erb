@@ -1,6 +1,7 @@
 <section id = "upcoming_holidays">
-<h3> Upcoming US Holidays:</h3>
+<h4> Upcoming US Holidays:</h4>
   <p><% @holiday_facade.create_holidays[0..2].each do |holiday| %></p>
         <p><strong><%= holiday.name %>:</strong> <%= holiday.date %> </p>
    <%end %>
 </section>
+<br>

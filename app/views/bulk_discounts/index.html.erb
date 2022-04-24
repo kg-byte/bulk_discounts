@@ -1,6 +1,8 @@
 <h1>Bulk Discounts List</h1>
-<%= render partial: '/partials/holiday_api' %>
 <p><%=link_to 'New Bulk Discount', new_merchant_bulk_discount_path(@merchant.id) %></p>
+<%= render partial: '/partials/holiday_api' %>
+
+<h4>Existing Bulk Discounts:</h4>
 <% @merchant.bulk_discounts.each_with_index do |discount, index| %>
 	<section id = "bulk_discount-<%= discount.id %>">
 	<p><strong>Bulk Discount <%=index+1%>:</strong></p>
