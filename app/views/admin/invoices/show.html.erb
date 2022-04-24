@@ -20,6 +20,10 @@
   <p><strong>Quantity:</strong> <%=invoice_item.quantity %></p>
   <p><strong>Sold For:</strong> $<%='%.02f' % (invoice_item.unit_price.to_f/100)%></p>
   <p><strong>Status:</strong> <%= invoice_item.status %></p>
+  <% if invoice_item.applied_discount && @invoice.status == 'completed'%>
+    <p><%= link_to 'Applied Bulk Discount',merchant_bulk_discount_path(invoice_item.applied_discount.merchant_id, invoice_item.applied_discount.id) %></p>
+    <% end %>
+    <br>
   <br/>
 </div>
 <% end %>
