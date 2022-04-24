@@ -1,19 +1,18 @@
-<h1>Invoice: <%= @invoice.id %></h1>
+<h1>Invoice Info for Invoice No.<%= @invoice.id %></h1>
 
 <p><strong>Customer Name: </strong><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-
 <p><strong>Status: </strong><%= @invoice.status %></p>
 <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, local: true do |form| %>
 <p><%= form.select(:status, [['Cancelled', 'cancelled'], ['In Progress', 'in progress'], ['Completed', 'completed']], selected: @invoice.status) %></p>
 
     <%= form.submit "Update Invoice Status" %>
   <% end %>
-
-
-
 <p><strong>Created at: </strong><%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
+<p><strong>Total Revenue:</strong> <%= number_to_currency(@invoice.total_revenue, :unit => '$')%></p>
+<p><strong>Discounted Revenue:</strong> <%= number_to_currency(@invoice.discounted_revenue, :unit => '$')%></p>
+<br><br>
 
-<h3>Items</h3>
+<h3>Invoice Items</h3>
 <% @invoice.invoice_items.each do |invoice_item| %>
 <div class="item-<%=invoice_item.item.id%>">
 
@@ -24,4 +23,3 @@
   <br/>
 </div>
 <% end %>
-<p><strong>Total Revenue: $<%= '%.2f' % @invoice.total_revenue%></p>
