@@ -13,6 +13,7 @@ class BulkDiscount < ApplicationRecord
   		pending_invoice_items.none?{|invoice_item| invoice_item.applied_discount == self}
   	end
 
+
   	def self.applicable?(new_params)
   		merchant = Merchant.find(new_params[:merchant_id])
   		bulk_discount = merchant.bulk_discounts.create(new_params)
@@ -25,5 +26,13 @@ class BulkDiscount < ApplicationRecord
   		duplicate = pluck(:quantity).include?(new_params[:quantity]) && pluck(:discount).include?(new_params[:discount])
   		result = applied && !duplicate
   		result
+  	end
+
+  	def self.find_holiday_discount_id(holiday_name)
+  		if find_by(name: holiday_name)
+  			find_by(name: holiday_name).id
+  		else 
+  			nil 
+  		end
   	end
 end
