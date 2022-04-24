@@ -47,7 +47,7 @@ RSpec.describe 'invoice show page' do
   it 'displays the total revenue that will be generated from all items on the invoice' do
     visit "/merchants/#{@merchant1.id}/invoices/#{@invoice2.id}"
 
-    expect(page).to have_content('$6323.01')
+    expect(page).to have_content('Total Revenue: $6,323.01')
   end
 
   it 'can update invoice item status via a select field' do
