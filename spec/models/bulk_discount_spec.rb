@@ -57,5 +57,13 @@ RSpec.describe BulkDiscount, type: :model do
             expect(BulkDiscount.applicable?(params3)).to eq false
       end
     end
+
+    describe '#find_holiday_discount_id' do 
+      it 'returns holiday discount id if found' do 
+          merchant1 = FactoryBot.create_list(:merchant,1)[0]
+          bulk_discount1 = merchant1.bulk_discounts.create(name: 'Christmas', quantity: 5, discount: 0.05)
+          expect(BulkDiscount.find_holiday_discount_id('Christmas')).to eq(bulk_discount1.id)
+      end
+    end
   end
 end

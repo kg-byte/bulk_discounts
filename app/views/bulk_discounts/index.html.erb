@@ -6,7 +6,7 @@
 <% @merchant.bulk_discounts.each_with_index do |discount, index| %>
 	<section id = "bulk_discount-<%= discount.id %>">
 	<% if discount.name %>
-		<p><strong><%=discount.name %> Discount:</strong></p>
+		<p><strong>Bulk Discount <%=index+1%>: <%=discount.name %> Discount:</strong></p>
 	<%else  %>
 		<p><strong>Bulk Discount <%=index+1%>:</strong></p>
 	<% end %>

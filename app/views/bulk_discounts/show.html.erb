@@ -1,3 +1,7 @@
-<p><strong>Bulk Discount Into: </strong></p>
+<% if @bulk_discount.name %>
+	<p><strong><%=  @bulk_discount.name %> Discount</strong>
+<% else %>
+	<p><strong>Bulk Discount Into: </strong></p>
+<% end %>
 <p><strong> Quantity threshold:</strong> <%= @bulk_discount.quantity %>, <strong>Percentage discount:</strong> <%= number_to_percentage(@bulk_discount.discount*100, precision: 0) %></p>
 <p><%= link_to 'Edit Bulk Discount', edit_merchant_bulk_discount_path(@bulk_discount.merchant.id, @bulk_discount.id) %></p>
