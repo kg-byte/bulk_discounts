@@ -1,9 +1,5 @@
-<h1>New Bulk Discount for <%= @merchant.name %></h1>
-  <%= form_with url: merchant_bulk_discounts_path(@merchant.id), method: :post, local: true do |form| %>
-    <p><%= form.label :quantity, "Quantity:" %></p>
-    <p><%= form.text_field :quantity %></p>
-    <p><%= form.label :discount, "Discount(0.01-0.99):" %></p>
-    <p><%= form.text_field :discount %></p>
-    <p><%= form.submit 'Submit' %></p>
-  <% end %>
-
+<% if params[:name] %>
+  <%= render partial: '/partials/new_holiday_discount' %>
+<% else  %>
+  <%= render partial: '/partials/new_bulk_discount' %>
+<% end %>

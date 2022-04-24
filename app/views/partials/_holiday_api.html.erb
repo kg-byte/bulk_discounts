@@ -1,7 +1,11 @@
 <section id = "upcoming_holidays">
 <h4> Upcoming US Holidays:</h4>
-  <p><% @holiday_facade.create_holidays[0..2].each do |holiday| %></p>
-        <p><strong><%= holiday.name %>:</strong> <%= holiday.date %> </p>
+  <p><% @holiday_facade.create_holidays[0..2].each_with_index do |holiday, index| %></p>
+
+  <section id = "holiday-<%= index+1%>">
+        <p><strong><%= holiday.name %>:</strong> <%= holiday.date %> 
+        <%=link_to 'Create Holiday Discount', new_merchant_bulk_discount_path(@merchant.id, name: holiday.name) %></p>
+  </section>
    <%end %>
 </section>
 <br>
