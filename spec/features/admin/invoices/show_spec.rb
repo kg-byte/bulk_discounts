@@ -84,6 +84,28 @@ RSpec.describe "admin invoices show page" do
     expect(page).to have_content("Total Revenue: $101.40")
   end
 
+
+  it 'shows the discounted revenue of an invoice' do 
+        merchant3 = FactoryBot.create_list(:merchant, 1)[0]
+        merchant4 = FactoryBot.create_list(:merchant, 1)[0]
+        item5 = FactoryBot.create_list(:item, 1, merchant: merchant3)[0]
+        item6 = FactoryBot.create_list(:item, 1, merchant: merchant4)[0]
+        invoice4 = FactoryBot.create_list(:invoice, 1)[0]
+        invoice_item5 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 20)
+        invoice_item6 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 10)
+        invoice_item7 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 8)
+        invoice_item8 = FactoryBot.create_list(:invoice_item, 1, item: item6, invoice: invoice4, unit_price: 1000, quantity: 10)
+        merchant3.bulk_discounts.create!(quantity: 10, discount: 0.1)
+        merchant3.bulk_discounts.create!(quantity: 15, discount: 0.2)
+        merchant3.bulk_discounts.create!(quantity: 20, discount: 0.15)
+        merchant4.bulk_discounts.create!(quantity: 10, discount: 0.05)
+
+        visit admin_invoice_path(invoice4.id)
+
+        expect(page).to have_content('Discounted Revenue: $425.00')
+
+
+  end 
   it "displays invoice status and allows edits" do
     customer3 = Customer.create!(first_name: "Ash", last_name: "Barty")
     invoice5 = customer3.invoices.create!(status: 0)
