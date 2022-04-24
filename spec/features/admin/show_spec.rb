@@ -48,117 +48,56 @@ RSpec.describe "the admin dashboard" do
   end
 
   it "has a list of the top 5 customers" do
-    FactoryBot.create_list(:customer, 7)
-    customer_1 = Customer.all[0]
-    customer_2 = Customer.all[1]
-    customer_3 = Customer.all[2]
-    customer_4 = Customer.all[3]
-    customer_5 = Customer.all[4]
-    customer_6 = Customer.all[5]
-    customer_7 = Customer.all[6]
 
-    Customer.all.each do |customer|
-      FactoryBot.create_list(:invoice, 2, customer: customer)
-    end
+    cust1 = FactoryBot.create_list(:customer, 1, first_name: 'cust1')[0]
+    cust2 = FactoryBot.create_list(:customer, 1, first_name: 'cust2')[0]
+    cust3 = FactoryBot.create_list(:customer, 1, first_name: 'cust3')[0]
+    cust4 = FactoryBot.create_list(:customer, 1, first_name: 'cust4')[0]
+    cust5 = FactoryBot.create_list(:customer, 1, first_name: 'cust5')[0]
+    cust6 = FactoryBot.create_list(:customer, 1, first_name: 'cust6')[0]
+    cust7 = FactoryBot.create_list(:customer, 1, first_name: 'cust7')[0]
 
-    invoice_0 = Invoice.all[0]
-    invoice_1 = Invoice.all[1]
-    invoice_2 = Invoice.all[2]
-    invoice_3 = Invoice.all[3]
-    invoice_4 = Invoice.all[4]
-    invoice_5 = Invoice.all[5]
-    invoice_6 = Invoice.all[6]
-    invoice_7 = Invoice.all[7]
-    invoice_8 = Invoice.all[8]
-    invoice_9 = Invoice.all[9]
-    invoice_10 = Invoice.all[10]
-    invoice_11 = Invoice.all[11]
-    invoice_12 = Invoice.all[12]
-    invoice_13 = Invoice.all[13]
-    invoice_14 = FactoryBot.create_list(:invoice, 1, customer: customer_1).first
-    invoice_15 = FactoryBot.create_list(:invoice, 1, customer: customer_1).first
-    invoice_16 = FactoryBot.create_list(:invoice, 1, customer: customer_6).first
-    invoice_17 = FactoryBot.create_list(:invoice, 1, customer: customer_7).first
-    invoice_18 = FactoryBot.create_list(:invoice, 1, customer: customer_7).first
-    invoice_19 = FactoryBot.create_list(:invoice, 1, customer: customer_7).first
-    invoice_20 = FactoryBot.create_list(:invoice, 1, customer: customer_7).first
-    invoice_21 = FactoryBot.create_list(:invoice, 1, customer: customer_7).first
-    invoice_22 = FactoryBot.create_list(:invoice, 1, customer: customer_1).first
-    invoice_23 = FactoryBot.create_list(:invoice, 1, customer: customer_2).first
-    invoice_24 = FactoryBot.create_list(:invoice, 1, customer: customer_2).first
-    invoice_25 = FactoryBot.create_list(:invoice, 1, customer: customer_6).first
 
-    # FactoryBot.create_list(:invoice, 8, customer: customer_1)
-    # 3.times do
-    #   FactoryBot.create_list(:transaction, 3, invoice: customer_1.invoices.sample, result: 1)
-    # end
-    # customer_1.invoices.each do |invoice|
-    #   FactoryBot.create_list(:transaction, 1, invoice: invoice, result: 0)
-    # end
+    invoice_1 = FactoryBot.create_list(:invoice, 1, customer: cust1)[0]
+    invoice_2 = FactoryBot.create_list(:invoice, 1, customer: cust2)[0]
+    invoice_3 = FactoryBot.create_list(:invoice, 1, customer: cust3)[0]
+    invoice_4 = FactoryBot.create_list(:invoice, 1, customer: cust4)[0]
+    invoice_5 = FactoryBot.create_list(:invoice, 1, customer: cust5)[0]
+    invoice_6 = FactoryBot.create_list(:invoice, 1, customer: cust6)[0]
+    invoice_7 = FactoryBot.create_list(:invoice, 1, customer: cust7)[0]
 
-    # customer_1 transactions total 7, 5 success
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_0, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_0, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_14, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_15, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_15, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_1, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_22, result: 0)
-    # customer_2 transactions total 3, 3 success
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_2, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_3, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_3, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_23, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_24, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_24, result: 0)
-    # customer_3 transactions total 1 1 success
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_4, result: 0)
-    # customer_4 transactions total 4 2 success
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_6, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_7, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_7, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_7, result: 0)
-    # customer_5 transactions total: 2, 0 success
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_9, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_9, result: 1)
-    # customer_6 transactions total: 5, 4 successful
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_10, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_11, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_11, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_16, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_25, result: 0)
-    # customer_7 transactions total: 8 6 success
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_13, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_17, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_18, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_18, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_19, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_19, result: 1)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_19, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_20, result: 0)
-    FactoryBot.create_list(:transaction, 1, invoice: invoice_21, result: 0)
+    FactoryBot.create_list(:transaction, 6, result:0, invoice: invoice_7)
+    FactoryBot.create_list(:transaction, 5, result:0, invoice: invoice_1)
+    FactoryBot.create_list(:transaction, 4, result:0, invoice: invoice_6)
+    FactoryBot.create_list(:transaction, 3, result:0, invoice: invoice_2)
+    FactoryBot.create_list(:transaction, 2, result:0, invoice: invoice_4)
+    FactoryBot.create_list(:transaction, 1, result:0, invoice: invoice_5)
+    FactoryBot.create_list(:transaction, 1, result:0, invoice: invoice_3)
+    
+  
 
     visit "/admin"
+
     expect(page).to have_content("Top 5 Customers")
-    within ".cust-#{customer_6.id}" do
-      expect(page).to have_content(customer_6.last_name)
+    within ".cust-#{cust6.id}" do
+      expect(page).to have_content(cust6.last_name)
       expect(page).to have_content(4)
     end
-    within ".cust-#{customer_7.id}" do
-      expect(page).to have_content(customer_7.last_name)
+    within ".cust-#{cust7.id}" do
+      expect(page).to have_content(cust7.last_name)
       expect(page).to have_content(6)
     end
-    within ".cust-#{customer_1.id}" do
-      expect(page).to have_content(customer_1.last_name)
+    within ".cust-#{cust1.id}" do
+      expect(page).to have_content(cust1.last_name)
       expect(page).to have_content(5)
     end
     within ".top-customers" do
-      expect(customer_7.first_name).to appear_before(customer_1.first_name)
-      expect(customer_1.first_name).to appear_before(customer_6.first_name)
-      expect(customer_6.first_name).to appear_before(customer_2.first_name)
-      expect(customer_2.first_name).to appear_before(customer_4.first_name)
-      expect(page).not_to have_content(customer_3.first_name)
-      expect(page).not_to have_content(customer_5.first_name)
+      expect(cust7.first_name).to appear_before(cust1.first_name)
+      expect(cust1.first_name).to appear_before(cust6.first_name)
+      expect(cust6.first_name).to appear_before(cust2.first_name)
+      expect(cust2.first_name).to appear_before(cust4.first_name)
+      expect(page).not_to have_content(cust3.first_name)
+      expect(page).not_to have_content(cust5.first_name)
     end
   end
 end

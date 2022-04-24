@@ -21,6 +21,9 @@
     <%= f.submit 'Update Item Status' %>
       <%end %>
     </div>
+    <% if invoice_item.applied_discount %>
+    <p><%= link_to 'Applied Bulk Discount',merchant_bulk_discount_path(invoice_item.applied_discount.merchant_id, invoice_item.applied_discount.id) %></p>
+    <% end %>
     <br>
 </section>
   <% end %>

@@ -17,6 +17,7 @@ RSpec.describe 'invoice show page' do
     @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 3, unit_price: 200000, status: "packaged")
     @invoice_item3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice2.id, quantity: 1, unit_price: 32301, status: "pending")
     @invoice_item4 = InvoiceItem.create!(item_id: @item4.id, invoice_id: @invoice3.id, quantity: 5, unit_price: 10000, status: "pending")
+
   end
 
   it "displays invoice information on the invoice show page" do
@@ -61,7 +62,7 @@ RSpec.describe 'invoice show page' do
     end
   end
 
-  it 'displays the discounted revenue that includes the largest bulk discount applied' do 
+  it 'displays the discounted revenue that includes the largest applicable bulk discount applied' do 
     merchant3 = FactoryBot.create_list(:merchant, 1)[0]
     item5 = FactoryBot.create_list(:item, 1, merchant: merchant3)[0]
     invoice4 = FactoryBot.create_list(:invoice, 1)[0]
@@ -74,5 +75,22 @@ RSpec.describe 'invoice show page' do
     expect(page).to have_content('Total Revenue: $150.00')
     expect(page).to have_content('Discounted Revenue: $120.00')
     expect(page).to_not have_content('Discounted Revenue: $135.00')
+  end
+
+  it 'shows a link to the applied bulk discount if applicable' do 
+    merchant3 = FactoryBot.create_list(:merchant, 1)[0]
+    item5 = FactoryBot.create_list(:item, 1, merchant: merchant3)[0]
+    invoice4 = FactoryBot.create_list(:invoice, 1)[0]
+    invoice_item5 = FactoryBot.create_list(:invoice_item, 1, item: item5, invoice: invoice4, unit_price: 1000, quantity: 15)[0]
+    discount1 = merchant3.bulk_discounts.create!(quantity: 10, discount: 0.1)
+    discount2 = merchant3.bulk_discounts.create!(quantity: 15, discount: 0.2)
+
+    visit "/merchants/#{merchant3.id}/invoices/#{invoice4.id}"
+
+    within("#invoice_item-#{invoice_item5.id}") do 
+      click_link 'Applied Bulk Discount'
+
+      expect(current_path).to eq merchant_bulk_discount_path(merchant3.id, discount2.id)
+    end
   end
 end
