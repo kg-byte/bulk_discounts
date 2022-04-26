@@ -40,8 +40,7 @@ RSpec.describe "the admin merchants indexpage" do
 
     within(".merchant-#{@merchant1.id}") do
       expect(page).to have_content(@merchant1.name)
-      updated_merchant = Merchant.find(@merchant1.id)
-      expect(page).to have_content(updated_merchant.status.capitalize)
+      expect(page).to have_content('Disabled')
       expect(page).to have_button('Enable')
     end
   end
@@ -56,16 +55,13 @@ RSpec.describe "the admin merchants indexpage" do
 
     visit admin_merchants_path
 
-    within(".enabled") do
+    within("#enabled") do
       expect(page).to have_content(merchant1.name)
       expect(page).to have_content(merchant2.name)
       expect(page).to have_content(merchant3.name)
-      expect(page).to_not have_content(merchant4.name)
-      expect(page).to_not have_content(merchant5.name)
-      expect(page).to_not have_content(merchant6.name)
     end
 
-    within(".disabled") do
+    within("#disabled") do
       expect(page).to_not have_content(merchant1.name)
       expect(page).to_not have_content(merchant2.name)
       expect(page).to_not have_content(merchant3.name)

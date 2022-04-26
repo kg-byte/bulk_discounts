@@ -29,28 +29,28 @@
 
 
 <section class="enabled">
-    <table class="table table-hover">
-    <h3> Enabled Items </h3>
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Item Name</th>
-        <th scope="col">Current Status</th>
-        <th scope="col">Enable/Disable</th>
-      </tr>
-    </thead>
-    <% @merchant.enabled_items.each_with_index do |item, index| %>
-    <div class="item-<%=item.id%>">
-    <tbody>
-    <tr>
-      <th scope="row"><%= index+1 %></th>
-      <td><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></td>
-      <td>Enabled</td>
-      <td> <%= button_to "Disable", "/merchants/#{@merchant.id}/items", params: {status: "disabled", item: item.id}, method: :patch %></td>
-    </tr>
-  </tbody>
-  </div>
-      <% end %>
+<table class="table table-hover">
+<h3> Enabled Items </h3>
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Item Name</th>
+    <th scope="col">Current Status</th>
+    <th scope="col">Enable/Disable</th>
+  </tr>
+</thead>
+<% @merchant.enabled_items.each_with_index do |item, index| %>
+<div class="item-<%=item.id%>">
+<tbody>
+<tr>
+  <th scope="row"><%= index+1 %></th>
+  <td><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></td>
+  <td>Enabled</td>
+  <td> <%= button_to "Disable", "/merchants/#{@merchant.id}/items", params: {status: "disabled", item: item.id}, method: :patch %></td>
+</tr>
+</tbody>
+</div>
+  <% end %>
 </section>
 
 

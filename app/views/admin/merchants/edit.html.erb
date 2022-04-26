@@ -1,7 +1,18 @@
+<h1>Admin Merchants</h1> 
+<%= render partial: 'partials/navbar_admin' %>
+<br>
+
 <div id=update_merchant>
+  <h4>Update Merchant</h4>
+  <div class="mb-3 row">
   <%= form_with url: "/admin/merchants/#{@merchant.id}", method: :patch, local:true do |form| %>
-    <%= form.label "Name:" %>
-    <%= form.text_field :name, :value => @merchant.name %>
-    <%= form.submit 'Submit' %>
+    <%= form.label :name, "Name:" %>
+    <div class="col-sm-10">
+    <%= form.text_field :name %>
+  </div>
+  <div class="col-sm-10">
+    <%= form.submit "Submit" %>
+  </div>
+</div>
   <% end %>
 </div>
