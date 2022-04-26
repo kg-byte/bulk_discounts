@@ -9,6 +9,7 @@ class Customer < ApplicationRecord
  def self.top_5_customers
    joins(:transactions)
    .where(transactions: {result: 0})
+   .where(invoices: {status: 2})
    .select("customers.*, count(transactions) as num_of_transactions")
    .group(:id)
    .order(num_of_transactions: :desc)
