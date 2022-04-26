@@ -18,6 +18,6 @@ RSpec.describe 'The admin merchant new' do
     expect(current_path).to eq "/admin/merchants"
 
     expect(page).to have_content("Cory")
-    expect(page).to have_content("Status: Disabled")
+    expect(page).to have_content("Disabled")
   end
 end

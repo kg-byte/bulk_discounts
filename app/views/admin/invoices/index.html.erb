@@ -1,9 +1,24 @@
-<h1>All Invoices</h1> 
+<h1>Admin Invoices</h1> 
+<%= render partial: 'partials/navbar_admin' %>
+
+
 <% count = 1 %>
-<% @invoices.each do |invoice| %>
-<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %>
-<% if count % 25 == 0 %>
-    <br/>
-    <% end %>
-  <% count += 1 %>
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Invoice ID</th>
+    <th scope="col">Invoice Status</th>
+  </tr>
+</thead>
+<% @invoices.each_with_index do |invoice, index| %>
+<tbody>
+<tr>
+  <th scope="row"><%= index+1 %></th>
+  <td><%= link_to "Invoice: #{invoice.id}", "/admin/invoices/#{invoice.id}" %></td>
+  <td><%= invoice.status %></td>
+</tr>
+</tbody>
 <% end %>
+</table>
+<br><br>

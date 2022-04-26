@@ -13,13 +13,16 @@
   </head>
 
   <body>
+  <div class ='container'>
+
+    <%= yield %>
     <div class="flash_message">
     <% flash.each do |type, message| %>
         <p><%= message %></p>
     <% end %>
-  </div>
-    <%= yield %>
+    </div>
 
+  </div>
     <%#= render partial: '/partials/github_api' %>
   </body>
 </html>

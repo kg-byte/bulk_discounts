@@ -1,31 +1,75 @@
-<h1>Invoice Info for Invoice No.<%= @invoice.id %></h1>
-
-<p><strong>Customer Name: </strong><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-<p><strong>Status: </strong><%= @invoice.status %></p>
-<%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, local: true do |form| %>
-<p><%= form.select(:status, [['Cancelled', 'cancelled'], ['In Progress', 'in progress'], ['Completed', 'completed']], selected: @invoice.status) %></p>
-
-    <%= form.submit "Update Invoice Status" %>
-  <% end %>
-<p><strong>Created at: </strong><%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
-<p><strong>Total Revenue:</strong> <%= number_to_currency(@invoice.total_revenue, :unit => '$')%></p>
-<p><strong>Discounted Revenue:</strong> <%= number_to_currency(@invoice.discounted_revenue, :unit => '$')%></p>
+<%= render partial: 'partials/navbar_admin' %>
+<table class="table table-hover">
+<h3>Invoice Information</h3>
+<thead>
+  <tr>
+    <th>Row</th>
+    <th>Invoice ID</th>
+    <th>Invoice Creation Date</th>
+    <th>Customer Name</th>
+    <th>Total Revenue</th>
+    <th>Discounted Revenue</th>
+    <th>Invoice Status Update</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td> <%= @invoice.id %></td>
+  <td> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></td>
+  <td> <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></td>
+  <td> <%= number_to_currency(@invoice.total_revenue, :unit => '$') %></td>
+  <td> <%= number_to_currency(@invoice.discounted_revenue, :unit =>'$') %></td>
+  <td> 
+       <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, local: true do |form| %>
+       <%= form.select(:status, [['Cancelled', 'cancelled'], ['In Progress', 'in progress'], ['Completed', 'completed']], selected: @invoice.status) %>
+       <%= form.submit "Update Invoice Status" %>
+       <% end %>
+  </td>
+</tr>
+</tbody>
+</table>
 <br><br>
 
-<h3>Invoice Items</h3>
-<% @invoice.invoice_items.each do |invoice_item| %>
-<div class="item-<%=invoice_item.item.id%>">
 
-  <p><strong>Item Name:</strong> <%=invoice_item.item.name%></p>
-  <p><strong>Quantity:</strong> <%=invoice_item.quantity %></p>
-  <p><strong>Sold For:</strong> $<%='%.02f' % (invoice_item.unit_price.to_f/100)%></p>
-  <p><strong>Status:</strong> <%= invoice_item.status %></p>
-  <section id = "invoice_item-<%= invoice_item.id %>"
+
+<table class="table table-hover">
+<h3>Invoice Item Information</h3>
+<thead>
+  <tr>
+    <th>Row</th>
+    <th>Item Name</th>
+    <th>Item Quantity</th>
+    <th>Selling Price</th>
+    <th>Status</th>
+    <th>Applied Bulk Discount</th>
+  </tr>
+</thead>
+<% count = 1 %>
+<% @invoice.items.each do |item| %>
+  <% item.invoice_items.each do |invoice_item| %>
+  <div class="item-<%=invoice_item.item.id%>">
+<tbody>
+<tr>
+  <td><%= count %></td>
+  <td> <%= item.name %></td>
+  <td> <%= invoice_item.quantity %></td>
+  <td> <%= number_to_currency((invoice_item.unit_price.to_f/100), :unit => '$') %></td>
+
+  <td><%= invoice_item.status %></td>
+  <td> 
+    <section id = "invoice_item-<%= invoice_item.id %>"
   <% if invoice_item.applied_discount && @invoice.status == 'completed'%>
     <p><%= number_to_percentage(invoice_item.applied_discount.discount*100, precision: 0)%> discount applied</p>
     <% end %>
   </section>
-    <br>
-  <br/>
+    </td>
+</tr>
+</tbody>
 </div>
+<% count+=1 %>
 <% end %>
+<%end  %>
+</table>
+
+

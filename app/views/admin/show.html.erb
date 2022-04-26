@@ -1,26 +1,50 @@
 <h1>Welcome to Admin Dashboard</h1>
-<%= link_to "Merchants Index", '/admin/merchants' %>
-<%= link_to "Invoices Index", '/admin/invoices' %>
+ <%= render partial: 'partials/navbar_admin' %>
+ <br>
 
 <section class="top-customers">
-  <h2>Top 5 Customers </h2>
-  <table>
-    <tr>
-      <th> Customer Name </th>
-      <th> No. Transactions </th>
-    </tr>
-    <% @top_5_customers.each do |customer| %>
-      <tr class="cust-<%= customer.id %>">
-        <td> <%= customer.first_name %> <%= customer.last_name %></td>
-        <td> <%= customer.num_of_transactions %></td>
+  <h3>Top 5 Customers:</h3>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Number of Successful Transactions</th>
       </tr>
-      <% end %>
-  </table>
+    </thead>
+    <% @top_5_customers.each_with_index do |customer, index|%>
+    <div class="cust-<%= customer.id %>">
+    <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= customer.first_name %> <%= customer.last_name %></td>
+      <td><%= customer.num_of_transactions %></td>
+    </div>
+    </tbody>
+  </section>
+  <% end %>
+</table>
 </section>
 
-<h2>Incomplete Invoices</h2>
-<div class="incompleted_invoices">
-  <% @invoices.not_completed.each do |invoice| %>
-    <p><%= link_to "Invoice: #{invoice.id}", "/admin/invoices/#{invoice.id}" %> Created On: <%= invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+<br>
+
+<section id="incompleted_invoices">
+<h3>Incomplete Invoices</h3>
+ <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Invoice ID</th>
+        <th scope="col">Created On</th>
+      </tr>
+    </thead>
+    <% @invoices.not_completed.each_with_index do |invoice, index|%>
+    <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= link_to "Invoice: #{invoice.id}", "/admin/invoices/#{invoice.id}" %></td>
+      <td><%= invoice.created_at.strftime("%A, %B %d, %Y") %></td>
+    </tbody>
   <% end %>
-</div>
+</table>
+</section>

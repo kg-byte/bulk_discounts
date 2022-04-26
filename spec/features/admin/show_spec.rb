@@ -24,7 +24,7 @@ RSpec.describe "the admin dashboard" do
 
     visit "/admin"
 
-    within(".incompleted_invoices") do
+    within("#incompleted_invoices") do
       expect(page).to have_content(invoice_1.id)
       expect(page).to have_content(invoice_2.id)
       expect(page).to_not have_content(invoice_3.id)
@@ -41,7 +41,7 @@ RSpec.describe "the admin dashboard" do
     invoice_3 = customer_1.invoices.create!(status: "in progress", created_at: "2022-04-08")
     visit "/admin"
 
-    within(".incompleted_invoices") do
+    within("#incompleted_invoices") do
       expect(invoice_3.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice_2.created_at.strftime("%A, %B %d, %Y"))
       expect(invoice_2.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice_1.created_at.strftime("%A, %B %d, %Y"))
     end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'invoice show page' do
+RSpec.describe 'merchant invoice show page' do
   before :each do
     @merchant1 = Merchant.create!(name: "Schroeder-Jerde")
     @merchant2 = Merchant.create!(name: "Schroeder-Jerde2")
@@ -48,7 +48,7 @@ RSpec.describe 'invoice show page' do
   it 'displays the total revenue that will be generated from all items on the invoice' do
     visit "/merchants/#{@merchant1.id}/invoices/#{@invoice2.id}"
 
-    expect(page).to have_content('Total Revenue: $6,323.01')
+    expect(page).to have_content('$6,323.01')
   end
 
   it 'can update invoice item status via a select field' do
@@ -72,9 +72,9 @@ RSpec.describe 'invoice show page' do
 
     visit "/merchants/#{merchant3.id}/invoices/#{invoice4.id}"
 
-    expect(page).to have_content('Total Revenue: $150.00')
-    expect(page).to have_content('Discounted Revenue: $120.00')
-    expect(page).to_not have_content('Discounted Revenue: $135.00')
+    expect(page).to have_content('$150.00')
+    expect(page).to have_content('$120.00')
+    expect(page).to_not have_content('$135.00')
   end
 
   it 'shows a link to the applied bulk discount if applicable' do 

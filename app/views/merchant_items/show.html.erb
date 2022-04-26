@@ -1,5 +1,10 @@
-<h1><%= @item.name %></h1>
+<h1> <%= @item.merchant.name %>'s Item</h1>
+<%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @item.merchant.id} %>
+ <br>
+<h4>Item Info</h4>
+<br>
+<p><strong>Name: </strong><%= @item.name %></p>
+<p><strong>Description:</strong> <%= @item.description %></p>
+<p><strong>Unit Price:</strong>  $<%= '%.02f' % (@item.unit_price.to_f/100) %></p>
 
-<h3>Description: <%= @item.description %></h3>
-<h3>Unit Price:  $<%= '%.02f' % (@item.unit_price.to_f/100) %></h3>
-<%= link_to "Update #{@item.name}", "/merchants/#{@item.merchant.id}/items/#{@item.id}/edit" %>
+<a href="/merchants/<%= @item.merchant.id %>/items/<%= @item.id %>/edit" class="link-info">Update <%= @item.name %></a>

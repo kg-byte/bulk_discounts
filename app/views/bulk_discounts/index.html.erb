@@ -1,18 +1,47 @@
-<h1>Bulk Discounts List</h1>
-<p><%=link_to 'New Bulk Discount', new_merchant_bulk_discount_path(@merchant.id) %></p>
+<h1><%= @merchant.name %>'s Bulk Discounts </h1>
+<%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @merchant.id} %>
+<div align='right'>
+
+<a href="/merchants/<%=@merchant.id%>/bulk_discounts/new" class="link-info">New Bulk Discount</a>
+</div>
+
 <%= render partial: '/partials/holiday_api' %>
 
+
+
 <h4>Existing Bulk Discounts:</h4>
-<% @merchant.bulk_discounts.each_with_index do |discount, index| %>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Quantity Threshold</th>
+        <th scope="col">Percentage Discount</th>
+        <th scope="col">View</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <% count = 1 %>
+   <% @merchant.bulk_discounts.each_with_index do |discount, index| %>
 	<section id = "bulk_discount-<%= discount.id %>">
-	<% if discount.name %>
-		<p><strong>Bulk Discount <%=index+1%>: <%=discount.name %> Discount:</strong></p>
-	<%else  %>
-		<p><strong>Bulk Discount <%=index+1%>:</strong></p>
+  <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td>
+      	<% if discount.name %>
+		<%=discount.name %>
+		<%else  %>
+		Bulk Discount <%=count%>
+		<% count+=1 %>
 	<% end %>
-	<p><strong> Quantity threshold:</strong> <%= discount.quantity %>, <strong>Percentage discount:</strong> <%= number_to_percentage(discount.discount*100, precision: 0) %></p>
-	<p><%= link_to "Go to This Discount", merchant_bulk_discount_path(@merchant.id, discount.id)%>
-	<%= link_to 'Delete This Discount', merchant_bulk_discount_path(@merchant.id, discount.id), method: :delete%></p>
-	<br>
-	</section>
-<% end %>
+      </td>
+      <td><%= discount.quantity %></td>
+      <td><%= number_to_percentage(discount.discount*100, precision: 0) %></td>
+      <td><%= link_to "View Discount", merchant_bulk_discount_path(@merchant.id, discount.id)%></td>
+      <td><%= link_to 'Delete', merchant_bulk_discount_path(@merchant.id, discount.id), method: :delete%></td>
+    </tr>
+  </tbody>
+  </section>
+  <% end %>
+</table>
+</div>
