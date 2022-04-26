@@ -1,4 +1,5 @@
-<h1>All Invoices</h1> 
+<h1>Admin Invoices</h1> 
+  <%= render partial: 'partials/navbar_admin' %>
 <% count = 1 %>
 <% @invoices.each do |invoice| %>
 <%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %>

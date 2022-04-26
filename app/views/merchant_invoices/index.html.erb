@@ -1,4 +1,24 @@
 <h1><%= @merchant.name %>'s Invoices </h1>
-<% @merchant.invoices.uniq.each do |invoice| %>
-  <h3>Invoice ID: <%= link_to invoice.id, "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %></h3>
-<% end %>
+<%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @merchant.id} %>
+
+
+
+<table class="table table-hover">
+<h3> All Invoices </h3>
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Invoice ID</th>
+    <th scope="col">Invoice Status</th>
+  </tr>
+</thead>
+<% @merchant.invoices.uniq.each_with_index do |invoice, index| %>
+<tbody>
+<tr>
+  <th scope="row"><%= index+1 %></th>
+  <td><%= link_to invoice.id, "/merchants/#{@merchant.id}/invoices/#{invoice.id}"%></td>
+  <td> <%= invoice.status %></td>
+</tr>
+</tbody>
+  <% end %>
+

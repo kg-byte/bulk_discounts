@@ -1,3 +1,5 @@
+<h1> <%= @item.merchant.name %>'s Item</h1>
+<%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @item.merchant.id} %>
 
 <div id=update_item>
   <%= render partial: "form", locals: {path: "/merchants/#{@item.merchant.id}/items/#{@item.id}",

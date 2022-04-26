@@ -1,5 +1,5 @@
 <h1>Invoice Info for Invoice No.<%= @invoice.id %></h1>
-
+<%= render partial: 'partials/navbar_admin' %>
 <p><strong>Customer Name: </strong><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 <p><strong>Status: </strong><%= @invoice.status %></p>
 <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, local: true do |form| %>

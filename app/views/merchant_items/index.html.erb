@@ -1,36 +1,84 @@
-
 <h1> <%= @merchant.name %>'s Items</h1>
-<h4><%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new" %></h4>
+ <%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @merchant.id} %>
 
+<br><br>
 <div class="top_items">
     <h3>Top 5 Items by Revenue</h3>
-    <% @merchant.popular_items.each do |item| %>
-      <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
-      <%= number_to_currency(item.totalrevenue, :unit=> '$' )%>
-      <p>Top selling date for <%= item.name %> was <%= item.best_day.strftime("%A, %B %d, %Y") %></p>
-    <% end %>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Revenue Generated</th>
+        <th scope="col">Top Selling Date</th>
+      </tr>
+    </thead>
+    <% @merchant.popular_items.each_with_index do |item, index| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></td>
+      <td><%= number_to_currency(item.totalrevenue, :unit=> '$' ) %></td>
+      <td><%= item.best_day.strftime("%A, %B %d, %Y") %></td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
 </div>
 <br><br>
 
-<h3> Enabled Items </h3>
+
 <section class="enabled">
-    <% @merchant.enabled_items.each do |item| %>
-      <div class="item-<%=item.id%>">
-          <p> <%= link_to  "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
-            <%= button_to "Disable", "/merchants/#{@merchant.id}/items", params: {status: "disabled", item: item.id}, method: :patch %>
-          </p>
-      </div>
+    <table class="table table-hover">
+    <h3> Enabled Items </h3>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Current Status</th>
+        <th scope="col">Enable/Disable</th>
+      </tr>
+    </thead>
+    <% @merchant.enabled_items.each_with_index do |item, index| %>
+    <div class="item-<%=item.id%>">
+    <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></td>
+      <td>Enabled</td>
+      <td> <%= button_to "Disable", "/merchants/#{@merchant.id}/items", params: {status: "disabled", item: item.id}, method: :patch %></td>
+    </tr>
+  </tbody>
+  </div>
       <% end %>
 </section>
 
-<h3> Disabled Items </h3>
+
+
 <section class="disabled">
-    <% @merchant.disabled_items.each do |item| %>
-      <div class="item-<%=item.id%>"
-          <p> <%= link_to  "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
-            <%= button_to "Enable", "/merchants/#{@merchant.id}/items", params: {status: "enabled", item: item.id}, method: :patch  %>
-          </p>
-      </div>
+    <table class="table table-hover">
+    <h3> Disabled Items </h3>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Current Status</th>
+        <th scope="col">Enable/Disable</th>
+      </tr>
+    </thead>
+    <% @merchant.disabled_items.each_with_index do |item, index| %>
+    <div class="item-<%=item.id%>">
+    <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></td>
+      <td>Disabled</td>
+      <td>   <%= button_to "Enable", "/merchants/#{@merchant.id}/items", params: {status: "enabled", item: item.id}, method: :patch %></td>
+    </tr>
+  </tbody>
+  </div>
       <% end %>
 </section>
+
+
 

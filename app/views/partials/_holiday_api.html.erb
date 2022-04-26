@@ -1,15 +1,33 @@
 <section id = "upcoming_holidays">
-<h4> Upcoming US Holidays:</h4>
-  <p><% @holiday_facade.create_holidays[0..2].each_with_index do |holiday, index| %></p>
 
+    <h4> Upcoming US Holidays:</h4>
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Holiday</th>
+        <th scope="col">Date</th>
+        <th scope="col">Holiday Discount</th>
+      </tr>
+    </thead>
+   <% @holiday_facade.create_holidays[0..2].each_with_index do |holiday, index| %>
   <section id = "holiday-<%= index+1%>">
-        <p><strong><%= holiday.name %>:</strong> <%= holiday.date %> 
-          <% if BulkDiscount.find_holiday_discount_id(holiday.name) %>
-            <%=link_to 'View Holiday Discount', merchant_bulk_discount_path(@merchant.id, BulkDiscount.find_holiday_discount_id(holiday.name)) %></p>
+  <tbody>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= holiday.name %></td>
+      <td><%= holiday.date %></td>
+      <td><% if BulkDiscount.find_holiday_discount_id(holiday.name) %>
+            <%=link_to 'View Holiday Discount', merchant_bulk_discount_path(@merchant.id, BulkDiscount.find_holiday_discount_id(holiday.name)) %>
           <% else %>
-        <%=link_to 'Create Holiday Discount', new_merchant_bulk_discount_path(@merchant.id, name: holiday.name) %></p>
-        <%end %>
+        <%=link_to 'Create Holiday Discount', new_merchant_bulk_discount_path(@merchant.id, name: holiday.name) %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
   </section>
-   <%end %>
-</section>
+  <% end %>
+</table>
+</div>
+
 <br>
