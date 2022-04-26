@@ -58,13 +58,13 @@ RSpec.describe "the admin dashboard" do
     cust7 = FactoryBot.create_list(:customer, 1, first_name: 'cust7')[0]
 
 
-    invoice_1 = FactoryBot.create_list(:invoice, 1, customer: cust1)[0]
-    invoice_2 = FactoryBot.create_list(:invoice, 1, customer: cust2)[0]
-    invoice_3 = FactoryBot.create_list(:invoice, 1, customer: cust3)[0]
-    invoice_4 = FactoryBot.create_list(:invoice, 1, customer: cust4)[0]
-    invoice_5 = FactoryBot.create_list(:invoice, 1, customer: cust5)[0]
-    invoice_6 = FactoryBot.create_list(:invoice, 1, customer: cust6)[0]
-    invoice_7 = FactoryBot.create_list(:invoice, 1, customer: cust7)[0]
+    invoice_1 = FactoryBot.create_list(:invoice, 1, customer: cust1, status: 2)[0]
+    invoice_2 = FactoryBot.create_list(:invoice, 1, customer: cust2, status: 2)[0]
+    invoice_3 = FactoryBot.create_list(:invoice, 1, customer: cust3, status: 2)[0]
+    invoice_4 = FactoryBot.create_list(:invoice, 1, customer: cust4, status: 2)[0]
+    invoice_5 = FactoryBot.create_list(:invoice, 1, customer: cust5, status: 2)[0]
+    invoice_6 = FactoryBot.create_list(:invoice, 1, customer: cust6, status: 2)[0]
+    invoice_7 = FactoryBot.create_list(:invoice, 1, customer: cust7, status: 2)[0]
 
     FactoryBot.create_list(:transaction, 6, result:0, invoice: invoice_7)
     FactoryBot.create_list(:transaction, 5, result:0, invoice: invoice_1)
