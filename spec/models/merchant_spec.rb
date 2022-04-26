@@ -92,7 +92,9 @@ RSpec.describe Merchant, type: :model do
         FactoryBot.create_list(:transaction, 2, invoice_id: invoice6.id, result: 0)
         FactoryBot.create_list(:transaction, 1, invoice_id: invoice7.id, result: 0)
 
-        expect(merchant1.top_5_customers).to eq([cust5, cust3, cust1, cust6, cust2])
+        top_5_customers_first_names = merchant1.top_5_customers.map { |customer| customer.first_name}
+                  
+        expect(top_5_customers_first_names).to eq([cust5.first_name, cust3.first_name, cust1.first_name, cust6.first_name, cust2.first_name])
       end
     end
 
