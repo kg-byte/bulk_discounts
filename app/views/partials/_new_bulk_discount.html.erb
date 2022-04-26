@@ -1,4 +1,7 @@
-<h1>New Bulk Discount for <%= @merchant.name %></h1>
+<h1><%= @merchant.name %>'s Bulk Discounts </h1>
+<%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @merchant.id} %>
+<br>
+<h4>New Bulk Discount for <%= @merchant.name %></h4>
   <%= form_with url: merchant_bulk_discounts_path(@merchant.id), method: :post, local: true do |form| %>
     <p><%= form.label :quantity, "Quantity:" %></p>
     <p><%= form.text_field :quantity %></p>
