@@ -5,7 +5,7 @@
 <h4>New Holiday Discount for <%= @merchant.name %></h4>
   <%= form_with url: merchant_bulk_discounts_path(@merchant.id), method: :post, local: true do |form| %>
     <p><%= form.label :name, "Discount Name:" %></p>
-    <p><%= form.text_field :name, :value =>  "#{params[:name]}"%></p>
+    <p><%= form.text_field :name, :value =>  "#{params[:name]} Discount"%></p>
     <p><%= form.label :quantity, "Quantity:"%></p>
     <p><%= form.text_field :quantity,  :value => '2'  %></p>
     <p><%= form.label :discount, "Discount(0.01-0.99):"  %></p>
