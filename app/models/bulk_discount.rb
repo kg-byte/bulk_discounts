@@ -28,9 +28,9 @@ class BulkDiscount < ApplicationRecord
   		result
   	end
 
-  	def self.find_holiday_discount_id(holiday_name)
-  		if find_by(name: holiday_name)
-  			find_by(name: holiday_name).id
+  	def self.find_holiday_discount_id(holiday_discount)
+  		if find_by(name: holiday_discount)
+  			find_by(name: holiday_discount).id
   		else 
   			nil 
   		end
