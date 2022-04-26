@@ -1,4 +1,7 @@
-<h1>Edit Bulk Discount Info</h1>
+<h1><%= @bulk_discount.merchant.name %>'s Bulk Discount </h1>
+<%= render partial: 'partials/navbar_merchant', :locals => {:merchant_id => @bulk_discount.merchant.id} %>
+<br>
+<h4>Edit Bulk Discount Info</h4>
   <%= form_with url: merchant_bulk_discount_path(@bulk_discount.merchant.id, @bulk_discount.id), method: :patch, local: true do |form| %>
     <p><%= form.label :quantity, "Quantity:" %></p>
     <p><%= form.text_field :quantity, :value => @bulk_discount.quantity%></p>
