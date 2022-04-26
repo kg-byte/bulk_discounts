@@ -1,4 +1,10 @@
 class BulkDiscountsController < ApplicationController
+before_action :repo_info, only: [:index]
+
+  def repo_info
+    @holiday_facade = HolidayFacade.new
+  end
+
   def index
     @merchant = Merchant.find(params[:merchant_id])
   end

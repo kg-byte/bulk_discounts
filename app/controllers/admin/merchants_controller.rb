@@ -18,7 +18,7 @@ class Admin::MerchantsController < ApplicationController
       merchant.update(status: params[:status])
       redirect_to action: :index
      else
-       merchant.update(merchant_params)
+      merchant.update(merchant_params)
       redirect_to "/admin/merchants/#{merchant.id}"
       flash[:alert] = "Merchant info successfully updated!"
     end
