@@ -10,7 +10,7 @@ class Customer < ApplicationRecord
    joins(:transactions)
    .where(transactions: {result: 0})
    .select("customers.*, count(transactions) as num_of_transactions")
-   .group("customers.id")
+   .group(:id)
    .order(num_of_transactions: :desc)
    .limit(5)
  end
