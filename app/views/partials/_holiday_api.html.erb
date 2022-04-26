@@ -17,8 +17,9 @@
       <th scope="row"><%= index+1 %></th>
       <td><%= holiday.name %></td>
       <td><%= holiday.date %></td>
-      <td><% if BulkDiscount.find_holiday_discount_id(holiday.name) %>
-            <%=link_to 'View Holiday Discount', merchant_bulk_discount_path(@merchant.id, BulkDiscount.find_holiday_discount_id(holiday.name)) %>
+      <% id =  BulkDiscount.find_holiday_discount_id("#{holiday.name} Discount") %>
+      <td><% if BulkDiscount.find_holiday_discount_id("#{holiday.name} Discount")  %>
+            <%=link_to 'View Holiday Discount', merchant_bulk_discount_path(@merchant.id, id) %>
           <% else %>
         <%=link_to 'Create Holiday Discount', new_merchant_bulk_discount_path(@merchant.id, name: holiday.name) %>
         <% end %>
