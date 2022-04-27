@@ -25,4 +25,8 @@ class Invoice < ApplicationRecord
                                       .sum(&:total_discount)
     total_revenue - discount
   end
+
+  def self.order_by_id
+    order(:id)
+  end
 end
