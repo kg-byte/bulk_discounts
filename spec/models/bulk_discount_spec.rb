@@ -40,24 +40,7 @@ RSpec.describe BulkDiscount, type: :model do
     end
   end
 
-    describe 'class methods' do 
-      describe '#applicable?' do 
-          it 'checks whether the params will create an applicable discount with existing discounts' do 
-            merchant1 = FactoryBot.create_list(:merchant,1)[0]
-            item1 = FactoryBot.create_list(:item, 1, merchant: merchant1)[0]
-            BulkDiscount.destroy_all
-            bulk_discount1 = merchant1.bulk_discounts.create(quantity: 5, discount: 0.05)
-            bulk_discount2 = merchant1.bulk_discounts.create(quantity: 10, discount: 0.1)
-            bulk_discount3 = merchant1.bulk_discounts.create(quantity: 20, discount: 0.2)
-            params1 = {quantity: 15, discount: 0.1, merchant_id: merchant1.id}
-            params2 = {quantity: 15, discount: 0.2, merchant_id: merchant1.id}
-            params3 = {quantity: 20, discount: 0.2, merchant_id: merchant1.id}
-            expect(BulkDiscount.applicable?(params1)).to eq false
-            expect(BulkDiscount.applicable?(params2)).to eq true
-            expect(BulkDiscount.applicable?(params3)).to eq false
-      end
-    end
-
+  describe 'class methods' do 
     describe '#find_holiday_discount_id' do 
       it 'returns holiday discount id if found' do 
           merchant1 = FactoryBot.create_list(:merchant,1)[0]
