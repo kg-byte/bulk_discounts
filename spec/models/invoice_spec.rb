@@ -48,7 +48,7 @@ RSpec.describe Invoice, type: :model do
         invoice_item8 = FactoryBot.create_list(:invoice_item, 1, item: item6, invoice: invoice4, unit_price: 1000, quantity: 10)
         merchant3.bulk_discounts.create!(quantity: 10, discount: 0.1)
         merchant3.bulk_discounts.create!(quantity: 15, discount: 0.2)
-        merchant3.bulk_discounts.create!(quantity: 20, discount: 0.15)
+        # merchant3.bulk_discounts.create!(quantity: 20, discount: 0.15) #no longer needed due to discountvalidator
         merchant4.bulk_discounts.create!(quantity: 10, discount: 0.05)
 
         expect(invoice4.discounted_revenue).to eq(425.0)
