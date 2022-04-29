@@ -23,7 +23,7 @@ private
   end 
 
   def permitted_by_relevant_discounts?(record)
-	if relevant_discount(record) == [] || (relevant_discount(record) != [] && relevant_discount(record).max < record.discount)
+	if relevant_discount(record) == [] ||  relevant_discount(record).max < record.discount
 	  true
 	else 
 	  false
