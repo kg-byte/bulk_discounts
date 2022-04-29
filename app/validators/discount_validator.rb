@@ -1,11 +1,9 @@
 class DiscountValidator < ActiveModel::Validator 
   def validate(record)
-	if  !applicable?(record)
-	  record.errors.add :base, 'This bulk discount cannot be created as it is not applicable with existing discounts'
-	end
+	  if  !applicable?(record)
+	    record.errors.add :base, 'This bulk discount cannot be created as it is not applicable with existing discounts'
+	  end
   end
-
-
 
 private 
   def only_discount?(record)
@@ -39,10 +37,10 @@ private
   end
 
   def duplicate?(record)
-	BulkDiscount.pluck(:quantity).include?(record.quantity) && BulkDiscount.pluck(:discount).include?(record.discount)
+		BulkDiscount.pluck(:quantity).include?(record.quantity) && BulkDiscount.pluck(:discount).include?(record.discount)
   end
 
   def applicable?(record)
-	applied?(record) && !duplicate?(record)
+		applied?(record) && !duplicate?(record)
   end
 end
